@@ -1,0 +1,3 @@
+Number of images enhanced: 51
+Time elapsed: 8.31 seconds
+Number of clients used [excluding the server]: 1
