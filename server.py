@@ -25,13 +25,13 @@ def enhance_image(image_data):
 
         # Enhance image (adjusting sharpness, brightness, and contrast by 10%)
         enhancer = ImageEnhance.Sharpness(img)
-        img = enhancer.enhance(1.5)  # 10% increase in sharpness
+        img = enhancer.enhance(1.5)  # 50% increase in sharpness
 
         enhancer = ImageEnhance.Brightness(img)
-        img = enhancer.enhance(1.5)  # 10% increase in brightness
+        img = enhancer.enhance(1.5)  # 50% increase in brightness
 
         enhancer = ImageEnhance.Contrast(img)
-        img = enhancer.enhance(1.5)  # 10% increase in contrast
+        img = enhancer.enhance(1.5)  # 50% increase in contrast
 
         return img
     except Exception as e:
@@ -74,7 +74,7 @@ def export_statistics():
                 elapsed_time = time.time() - start_time
                 file.write(f"Number of images enhanced: {num_images_processed}\n")
                 file.write(f"Time elapsed: {elapsed_time:.2f} seconds\n")
-                file.write(f"Number of machines used: {len(machines_used)}\n")
+                file.write(f"Number of clients used [excluding the server]: {len(machines_used)}\n")
             else:
                 file.write("No images processed yet.\n")
 
@@ -82,6 +82,7 @@ def export_statistics():
 
     except Exception as e:
         print(f"Error occurred while saving statistics: {e}")
+
 
 # Function to start the server
 def start_server():
@@ -119,9 +120,9 @@ def start_server():
                     if enhanced_image:
                         save_image(enhanced_image, idx)
                         update_statistics(addr)
+                        export_statistics()  # Update statistics after processing each image
 
     server_socket.close()
-    export_statistics()
 
 if __name__ == "__main__":
     start_server()
